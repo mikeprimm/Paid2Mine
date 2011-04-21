@@ -26,7 +26,7 @@ public class Paid2Mine extends JavaPlugin
     private static Configuration config;
 
     public static HashMap<Integer, Double> ItemValues = new HashMap<Integer, Double>();
-    public static Double defaultValue = 0.10;
+    public static Double defaultValue = 0.00;
 
     @Override
     public void onEnable()
@@ -77,8 +77,6 @@ public class Paid2Mine extends JavaPlugin
                 config.load();
             }
 
-            defaultValue = Double.parseDouble((String)config.getProperty("items.default.value"));
-
             debug = Boolean.parseBoolean((String)config.getProperty("debug.showinfo"));
 
             List<String> KeysToImport = config.getKeys("items");
@@ -87,9 +85,12 @@ public class Paid2Mine extends JavaPlugin
 
             for(String x : KeysToImport)
             {
-                if(x.equals("default"))
-                    continue;
-                ItemValues.put(Integer.parseInt((String)config.getProperty("items." + x + ".itemid")), Double.parseDouble((String)config.getProperty("items." + x + ".value")));
+                if(x.equalsIgnoreCase("default"))
+                {
+                    defaultValue = Double.parseDouble((String)config.getProperty("items." + x + ".value"));
+                } else {
+                    ItemValues.put(Integer.parseInt((String)config.getProperty("items." + x + ".itemid")), Double.parseDouble((String)config.getProperty("items." + x + ".value")));
+                }
             }
         } catch(Exception e)
         {
