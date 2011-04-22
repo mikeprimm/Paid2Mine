@@ -20,7 +20,7 @@ public class Paid2Mine extends JavaPlugin
     public static Logger log = Logger.getLogger("Minecraft");
     public String name;
     public String version;
-    public static iConomy icon;
+    public iConomy icon;
     public MineBL minebl;
     public static boolean debug = false;
 
@@ -158,7 +158,7 @@ class iUpdate implements Runnable
         Paid2Mine.SQLCache.keySet().toArray(a);
         for(String x : a)
         {
-            b.getAccount(x).add(plugin.SQLCache.get(x.toString()));
+            b.getAccount(x).add(plugin.SQLCache.get(x));
         }
         Paid2Mine.SQLCache.clear();
     }
