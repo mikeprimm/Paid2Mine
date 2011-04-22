@@ -154,9 +154,9 @@ class iUpdate implements Runnable
     public void run()
     {
         Bank b = plugin.icon.getBank();
-        for(String x : (String[])plugin.SQLCache.keySet().toArray())
+        for(Object x : plugin.SQLCache.keySet().toArray())
         {
-            b.getAccount(x).add(plugin.SQLCache.get(x));
+            b.getAccount(x).add(plugin.SQLCache.get((String)x));
         }
     }
 }
