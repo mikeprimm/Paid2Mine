@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.nijiko.coelho.iConomy.iConomy;
+import com.nijiko.coelho.iConomy.system.Bank;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,8 @@ public class Paid2Mine extends JavaPlugin
     public static HashMap<Integer, Double> ItemValues = new HashMap<Integer, Double>();
     public static Double defaultValue = 0.00;
 
+    public static HashMap<String, Double> SQLCache = new HashMap<String, Double>();
+
     @Override
     public void onEnable()
     {
@@ -45,6 +48,8 @@ public class Paid2Mine extends JavaPlugin
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, new iUpdate(this), 0l, 1000L);
 
         readConfig();
         
@@ -121,5 +126,37 @@ public class Paid2Mine extends JavaPlugin
             return true;
         }
         return false;
+    }
+
+    public void addToQueue(String playerName, Double amount)
+    {
+        double amt;
+        if(SQLCache.containsKey(playerName))
+        {
+            amt = SQLCache.get(playerName) + amount;
+            SQLCache.remove(playerName);
+        } else {
+            amt = amount;
+        }
+
+        SQLCache.put(playerName, amt);
+    }
+}
+
+class iUpdate implements Runnable
+{
+    Paid2Mine plugin;
+    public iUpdate(Paid2Mine pl)
+    {
+        this.plugin = pl;
+    }
+
+    public void run()
+    {
+        Bank b = plugin.icon.getBank();
+        for(String x : (String[])plugin.SQLCache.keySet().toArray())
+        {
+            b.getAccount(x).add(plugin.SQLCache.get(x));
+        }
     }
 }

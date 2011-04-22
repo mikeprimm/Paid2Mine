@@ -23,6 +23,6 @@ public class MineBL extends BlockListener
             value = plugin.ItemValues.get(b.getTypeId());
         }
 
-        plugin.icon.getBank().getAccount(event.getPlayer().getName()).add(value);
+        plugin.addToQueue(event.getPlayer().getName(), value);
     }
 }
