@@ -49,7 +49,7 @@ public class Paid2Mine extends JavaPlugin
             return;
         }
 
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, new iUpdate(this), 0l, 1000L);
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, new iUpdate(this), 0l, (long)(2.5 * 1000));
 
         readConfig();
         
