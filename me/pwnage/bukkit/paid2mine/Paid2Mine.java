@@ -156,6 +156,7 @@ class iUpdate implements Runnable
         Bank b = plugin.icon.getBank();
         String[] a = new String[255];
         Paid2Mine.SQLCache.keySet().toArray(a);
+        System.out.println("---------------------");
         for(String x : a)
         {
             if(!x.equals(null))
@@ -164,6 +165,7 @@ class iUpdate implements Runnable
                 b.getAccount(x).add(plugin.SQLCache.get(x));
             }
         }
+        System.out.println("---------------------");
         Paid2Mine.SQLCache.clear();
     }
 }
