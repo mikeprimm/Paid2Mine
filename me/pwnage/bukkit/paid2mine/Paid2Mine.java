@@ -158,6 +158,7 @@ class iUpdate implements Runnable
         Paid2Mine.SQLCache.keySet().toArray(a);
         for(String x : a)
         {
+            plugin.log.log(Level.INFO, "[" + plugin.name + "] Updating " + x + "'s account...");
             b.getAccount(x).add(plugin.SQLCache.get(x));
         }
         Paid2Mine.SQLCache.clear();
