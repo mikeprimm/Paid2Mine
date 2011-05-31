@@ -82,9 +82,9 @@
 /*  84 */         config.load();
 /*     */       }
 /*     */ 
-/*  87 */       debug = Boolean.parseBoolean((String)config.getProperty("debug.showinfo"));
-/*  88 */       this.alertPlayer = Boolean.parseBoolean((String)config.getProperty("config.alert.enabled"));
-/*  89 */       this.alertMessage = ((String)config.getProperty("config.alert.message"));
+/*  87 */       debug = config.getBoolean("debug.showinfo", false);
+/*  88 */       this.alertPlayer = config.getBoolean("config.alert.enabled", true);
+/*  89 */       this.alertMessage = config.getString("config.alert.message", "It's payday! You have earned $$");
 /*  90 */       this.alertMessage = this.alertMessage.replaceAll("&", "¤");
 /*  91 */       this.alertMessage = this.alertMessage.replaceAll("\\'", "'");
 /*     */ 
@@ -96,9 +96,9 @@
 /*     */       {
 /*  99 */         if (x.equalsIgnoreCase("default"))
 /*     */         {
-/* 101 */           defaultValue = Double.valueOf(Double.parseDouble((String)config.getProperty("items." + x + ".value")));
+/* 101 */           defaultValue = config.getDouble("items." + x + ".value", 0.10);
 /*     */         }
-/* 103 */         else ItemValues.put(Integer.valueOf(Integer.parseInt((String)config.getProperty("items." + x + ".itemid"))), Double.valueOf(Double.parseDouble((String)config.getProperty("items." + x + ".value"))));
+/* 103 */         else ItemValues.put(config.getInt("items." + x + ".itemid", 1), config.getDouble("items." + x + ".value", 0.1));
 /*     */       }
 /*     */     }
 /*     */     catch (Exception e)

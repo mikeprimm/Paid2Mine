@@ -27,7 +27,9 @@
 /*     */ 
 /* 168 */         if (this.plugin.alertPlayer)
 /*     */         {
-/* 170 */           this.plugin.getServer().getPlayer(x).sendMessage(this.plugin.alertMessage.replace("$$", "" + String.format("%.2f", new Object[] { Paid2Mine.SQLCache.get(x) })));
+	                Player p = plugin.getServer().getPlayer(x);
+	                if(p != null)
+/* 170 */           	p.sendMessage(this.plugin.alertMessage.replace("$$", "" + String.format("%.2f", new Object[] { Paid2Mine.SQLCache.get(x) })));
 /*     */         }
 /*     */       }
 /*     */     }
